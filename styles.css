@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-/* Add to styles.css for clock styling */
 #digital-clock {
     font-size: 3rem;
     font-family: 'Courier New', Courier, monospace;

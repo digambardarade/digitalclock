@@ -14,21 +14,26 @@ function updateDigitalClock() {
         `${minutes.toString().padStart(2, '0')}:` +
         `${seconds.toString().padStart(2, '0')} ${ampm}`;
 
-        console.log(timeString);
-
+       
     clock.textContent = timeString;
 }
 
-function upadateCountdownTimer(seconds) {
+let timerInterval;
+
+function upadateCountdownTimer(seconds, isClear = false) {
+
     const countdown = document.getElementById('countdown-timer');
+
     let timeLeft = seconds; // seconds
 
-    const timerInterval = setInterval(() => {
+    isClear ? clearInterval(timerInterval):'';
+
+     timerInterval = setInterval(() => {
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            countdown.textContent = "Time's up!";
+            countdown.textContent = "00:00:00";
         } else {
-            countdown.textContent = `Time left: ${timeLeft} seconds`;
+            countdown.textContent = `00:00:${timeLeft.toString().padStart(2, '0')}`;
             timeLeft--;
         }
 
@@ -36,6 +41,21 @@ function upadateCountdownTimer(seconds) {
     }, 1000);
 }
 
+
+
 setInterval(updateDigitalClock, 1000);
 updateDigitalClock();
-upadateCountdownTimer(60);
+upadateCountdownTimer(0,true); // Initialize countdown timer display
+
+document.getElementById('preset-timer-10-sec').addEventListener('click', function() {
+  upadateCountdownTimer(10,true);
+});
+document.getElementById('preset-timer-30-sec').addEventListener('click', function() {
+  upadateCountdownTimer(30,true);
+});
+document.getElementById('preset-timer-60-sec').addEventListener('click', function() {
+  upadateCountdownTimer(60,true);
+});
+document.getElementById('timer-stop').addEventListener('click', function() {
+  upadateCountdownTimer(0,true);
+});
